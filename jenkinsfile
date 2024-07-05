@@ -1,0 +1,61 @@
+pipeline {
+    agent any
+
+    environment {
+        NODE_VERSION = '14.17.0'
+        RENDER_SERVICE_NAME = 'render'
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git 'https://github.com/Maubinyaachi/gallery.git'
+            }
+        }
+
+        stage('Install NodeJS') {
+            tools {
+                nodejs NODE_VERSION
+            }
+            steps {
+                sh 'npm install'
+            }
+        }
+
+        stage('Run Tests') {
+            steps {
+                sh 'npm test'
+            }
+        }
+
+        stage('Deploy to Render') {
+            steps {
+                sh 'npm install -g render-cli'
+                sh 'render deploy service --service-name ${RENDER_SERVICE_NAME} --env production'
+            }
+        }
+
+        stage('Update Landing Page') {
+            steps {
+                script {
+                    sh 'echo "<div>MILESTONE 2</div>" >> path/to/your/landing-page-file.html'
+                    sh '''
+                    git config user.email "you@example.com"
+                    git config user.name "Your Name"
+                    git add path/to/your/landing-page-file.html
+                    git commit -m "Add MILESTONE 2 to the landing page"
+                    git push origin master
+                    '''
+                }
+            }
+        }
+    }
+
+    post {
+        failure {
+            mail to: 'maubi.nehemiah@student.moringaschool.com',
+                 subject: "Pipeline Failed: ${currentBuild.fullDisplayName}",
+                 body: "Something went wrong. Please check the Jenkins logs for more details."
+        }
+    }
+}

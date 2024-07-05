@@ -8,6 +8,6 @@ config.mongoURI = {
 }
 module.exports = config;
 module.exports = {
-    mongoURI: 'mongodb+srv://<USERNAME>:<PASSWORD>@cluster0.mongodb.net/<DBNAME>?retryWrites=true&w=majority',
+    mongoURI: 'mongodb+srv://Maubinehemiah:@kemmy1998@cluster0.mongodb.net/<DBNAME>?retryWrites=true&w=majority',
     secretOrKey: 'secret'
 };
