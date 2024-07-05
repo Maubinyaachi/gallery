@@ -4,8 +4,17 @@
   "description": "",
   "main": "server.js",
   "scripts": {
+<<<<<<< Updated upstream
     "test": "mocha --exit"
   },
+=======
+        "start": "node server.js",
+        "build": "node build.js"
+      }
+    }
+    
+  ,
+>>>>>>> Stashed changes
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -23,4 +32,4 @@
     "chai-http": "^1.0.0",
     "mocha": "^8.1.1"
   }
-}
+
